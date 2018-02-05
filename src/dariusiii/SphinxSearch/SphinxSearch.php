@@ -25,18 +25,18 @@ class SphinxSearch
      */
     public function __construct()
     {
-        $host = \Config::get('sphinxsearch.host');
-        $port = \Config::get('sphinxsearch.port');
-        $timeout = \Config::get('sphinxsearch.timeout');
+        $host = config('sphinxsearch.host');
+        $port = config('sphinxsearch.port');
+        $timeout = config('sphinxsearch.timeout');
         $this->_connection = new \Sphinx\SphinxClient();
         $this->_connection->setServer($host, $port);
         $this->_connection->setConnectTimeout($timeout);
         $this->_connection->setMatchMode(\Sphinx\SphinxClient::SPH_MATCH_ANY);
         $this->_connection->setSortMode(\Sphinx\SphinxClient::SPH_SORT_RELEVANCE);
-        if (\extension_loaded('mysqli') && \Config::get('sphinxsearch.mysql_server')) {
-            $this->_raw_mysql_connection = mysqli_connect(\Config::get('sphinxsearch.mysql_server.host'), '', '', '', \Config::get('sphinxsearch.mysql_server.port'));
+        if (\extension_loaded('mysqli') && config('sphinxsearch.mysql_server')) {
+            $this->_raw_mysql_connection = mysqli_connect(config('sphinxsearch.mysql_server.host'), '', '', '', config('sphinxsearch.mysql_server.port'));
         }
-        $this->_config = \Config::get('sphinxsearch.indexes');
+        $this->_config = config('sphinxsearch.indexes');
         reset($this->_config);
         $this->_index_name = isset($this->_config['name']) ? implode(',', $this->_config['name']) : key($this->_config);
         $this->_eager_loads = [];
@@ -93,7 +93,7 @@ class SphinxSearch
     public function search($string, $index_name = null)
     {
         $this->_search_string = $string;
-        if (null !== $index_name) {
+        if ($index_name !== null) {
             // if index name contains , or ' ', multiple index search
             if (strpos($index_name, ' ') || strpos($index_name, ',')) {
                 if (! isset($this->_config['mapping'])) {
@@ -111,6 +111,7 @@ class SphinxSearch
     /**
      * @param $weights
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setFieldWeights($weights)
     {
@@ -122,6 +123,7 @@ class SphinxSearch
     /**
      * @param array $weights
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setIndexWeights(array $weights)
     {
@@ -133,6 +135,7 @@ class SphinxSearch
     /**
      * @param $mode
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setMatchMode($mode)
     {
@@ -144,6 +147,7 @@ class SphinxSearch
     /**
      * @param $mode
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setRankingMode($mode)
     {
@@ -156,6 +160,7 @@ class SphinxSearch
      * @param $mode
      * @param null $sortby
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setSortMode($mode, $sortby = null)
     {
@@ -170,6 +175,7 @@ class SphinxSearch
      * @param $max
      * @param bool $exclude
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setFilterFloatRange($attribute, $min, $max, $exclude = false)
     {
@@ -184,6 +190,7 @@ class SphinxSearch
      * @param null $lat
      * @param null $long
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setGeoAnchor($attrlat, $attrlong, $lat = null, $long = null)
     {
@@ -197,6 +204,7 @@ class SphinxSearch
      * @param $func
      * @param string $groupsort
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setGroupBy($attribute, $func, $groupsort = '@group desc')
     {
@@ -208,6 +216,7 @@ class SphinxSearch
     /**
      * @param $select
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setSelect($select)
     {
@@ -222,6 +231,7 @@ class SphinxSearch
      * @param int $max_matches
      * @param int $cutoff
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function limit($limit, $offset = 0, $max_matches = 1000, $cutoff = 1000)
     {
@@ -235,6 +245,7 @@ class SphinxSearch
      * @param $values
      * @param bool $exclude
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function filter($attribute, $values, $exclude = false)
     {
@@ -257,6 +268,7 @@ class SphinxSearch
      * @param $max
      * @param bool $exclude
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function range($attribute, $min, $max, $exclude = false)
     {
@@ -267,6 +279,7 @@ class SphinxSearch
 
     /**
      * @return mixed
+     * @throws \ErrorException
      */
     public function query()
     {
@@ -276,19 +289,21 @@ class SphinxSearch
     /**
      * Run an insert or replace statement against the database.
      *
-     * @param  string  $query
-     * @param  array   $bindings
+     * @param  string $query
+     * @param  array $bindings
      * @return bool
+     * @throws \ErrorException
      */
-    public function replace($query, $bindings = [])
+    public function replace($query, array $bindings = []): bool
     {
-        return $this->_connection->replace($query, $bindings);
+        return $this->_connection->query($query, $bindings);
     }
 
     /**
      * @param $content
      * @param array $opts
      * @return mixed
+     * @throws \InvalidArgumentException
      */
     public function excerpt($content, array $opts = [])
     {
@@ -299,6 +314,7 @@ class SphinxSearch
      * @param $contents
      * @param array $opts
      * @return mixed
+     * @throws \InvalidArgumentException
      */
     public function excerpts($contents, array $opts = [])
     {
@@ -308,6 +324,7 @@ class SphinxSearch
     /**
      * @param bool $respect_sort_order
      * @return array|mixed
+     * @throws \ErrorException
      */
     public function get($respect_sort_order = false)
     {
