@@ -1,5 +1,5 @@
-<?php 
-namespace sngrl\SphinxSearch;
+<?php
+namespace dariusiii\SphinxSearch;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -10,17 +10,15 @@ class SphinxSearchServiceProvider extends ServiceProvider
         $this->app->singleton('sphinxsearch', function ($app) {
             return new SphinxSearch;
         });
+	
+	    $this->app->alias('SphinxSearch', SphinxSearch::class);
     }
 
 
     public function boot()
     {
         $this->publishes([
-            ## Original
-            #__DIR__.'../../../../config/sphinxsearch.php' => config_path('sphinxsearch.php'),
-
-            ## https://github.com/sngrl/sphinxsearch/issues/3
-            __DIR__.'/../../../config/sphinxsearch.php' => config_path('sphinxsearch.php'),
+            __DIR__.'/../../config/sphinxsearch.php' => config_path('sphinxsearch.php'),
         ]);
     }
 

@@ -1,5 +1,5 @@
 {
-  "name": "sngrl/sphinxsearch",
+  "name": "dariusiii/sphinxsearch",
   "description": "Laravel package to query Sphinxsearch in Laravel 5",
   "keywords": [
     "sphinx",
@@ -7,22 +7,27 @@
     "laravel",
     "laravel 5"
   ],
-  "homepage": "http://github.com/sngrl/sphinxsearch",
+  "homepage": "http://github.com/DariusIII/sphinxsearch",
   "license": "Apache-2.0",
   "authors": [
     {
       "name": "sngrl",
       "email": "reserved@mail.ru"
+    },
+    {
+      "name": "DariusIII",
+      "email": "dkrisan@gmail.com"
     }
   ],
   "require": {
-    "php": ">=5.3.0",
-    "illuminate/support": "~5.0",
-    "gigablah/sphinxphp": "2.0.8"
+    "roave/security-advisories": "dev-master",
+    "php": ">=7.1.0",
+    "illuminate/support": "~5.4",
+    "gigablah/sphinxphp": "2.0.*"
   },
   "autoload": {
     "psr-0": {
-      "sngrl\\SphinxSearch": "src/"
+      "dariusiii\\SphinxSearch": "src/"
     }
   }
 }
