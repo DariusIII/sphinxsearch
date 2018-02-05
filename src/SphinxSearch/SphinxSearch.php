@@ -274,6 +274,18 @@ class SphinxSearch
     }
 
     /**
+     * Run an insert or replace statement against the database.
+     *
+     * @param  string  $query
+     * @param  array   $bindings
+     * @return bool
+     */
+    public function replace($query, $bindings = [])
+    {
+        return $this->_connection->replace($query, $bindings);
+    }
+
+    /**
      * @param $content
      * @param array $opts
      * @return mixed

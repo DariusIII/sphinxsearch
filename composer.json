@@ -26,18 +26,18 @@
     "gigablah/sphinxphp": "2.0.*"
   },
   "autoload": {
-    "psr-0": {
-      "dariusiii\\SphinxSearch": "src/dariusiii/SphinxSearch"
+    "psr-4": {
+      "dariusiii\\SphinxSearch": "src/SphinxSearch"
     }
   },
 
   "extra": {
     "laravel": {
       "providers": [
-        "dariusiii\\SphinxSearch\\SphinxSearchServiceProvider"
+        "SphinxSearch\\SphinxSearchServiceProvider"
       ],
       "aliases": {
-        "Fixtures": "dariusiii\\SphinxSearch\\SphinxSearchFacade"
+        "SphinxSearch": "SphinxSearch\\Facades\\SphinxSearch"
       }
     }
   }
