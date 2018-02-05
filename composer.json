@@ -26,7 +26,7 @@
     "gigablah/sphinxphp": "2.0.*"
   },
   "autoload": {
-    "psr-4": {
+    "psr-0": {
       "dariusiii\\SphinxSearch": "src/dariusiii/SphinxSearch"
     }
   },
