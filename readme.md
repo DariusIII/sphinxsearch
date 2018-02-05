@@ -13,7 +13,7 @@ Require this package in your composer.json:
 ```php
 	"require": {
         /*** Some others packages ***/
-		"dariusiii/sphinxsearch": "dev-master",
+		"dariusiii/sphinxsearch": "^1.0",
 	},
 ```
 
@@ -23,7 +23,7 @@ Run in your console `composer update` command to pull down the latest version of
 Or just run this in console:
 
 ```php
-composer require dariusiii/sphinxsearch:dev-master
+composer require dariusiii/sphinxsearch 
 ```
 
 After updating composer, add the ServiceProvider to the "providers" array in config/app.php:
