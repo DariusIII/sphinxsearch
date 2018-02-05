@@ -22,12 +22,23 @@
   "require": {
     "roave/security-advisories": "dev-master",
     "php": ">=7.1.0",
-    "illuminate/support": "~5.4",
+    "illuminate/support": "5.x",
     "gigablah/sphinxphp": "2.0.*"
   },
   "autoload": {
     "psr-0": {
-      "dariusiii\\SphinxSearch": "src/"
+      "dariusiii\\SphinxSearch": "src/dariusiii/SphinxSearch"
+    }
+  },
+
+  "extra": {
+    "laravel": {
+      "providers": [
+        "dariusiii\\SphinxSearch\\SphinxSearchServiceProvider"
+      ],
+      "aliases": {
+        "Fixtures": "dariusiii\\SphinxSearch\\SphinxSearchFacade"
+      }
     }
   }
 }
