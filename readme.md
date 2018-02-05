@@ -35,6 +35,9 @@ After updating composer, add the ServiceProvider to the "providers" array in con
     ),
 ```
 
+No need to do this if you are using Laravel 5.5 as it will autodiscover this package.
+
+
 You can add this line to the files, where you may use SphinxSearch:
 
 ```php
