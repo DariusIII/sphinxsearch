@@ -27,17 +27,17 @@
   },
   "autoload": {
     "psr-4": {
-      "dariusiii\\SphinxSearch": "src/SphinxSearch"
+      "dariusiii\\SphinxSearch": "src/dariusiii/SphinxSearch"
     }
   },
 
   "extra": {
     "laravel": {
       "providers": [
-        "SphinxSearch\\SphinxSearchServiceProvider"
+        "dariusiii\\SphinxSearch\\SphinxSearchServiceProvider"
       ],
       "aliases": {
-        "SphinxSearch": "SphinxSearch\\Facades\\SphinxSearch"
+        "SphinxSearch": "dariusiii\\SphinxSearch\\Facades\\SphinxSearch"
       }
     }
   }
