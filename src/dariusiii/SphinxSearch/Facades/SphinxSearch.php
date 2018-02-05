@@ -4,7 +4,7 @@ namespace dariusiii\SphinxSearch;
 
 use Illuminate\Support\Facades\Facade;
 
-class SphinxSearchFacade extends Facade
+class SphinxSearch extends Facade
 {
     /**
      * Get the registered name of the component.
