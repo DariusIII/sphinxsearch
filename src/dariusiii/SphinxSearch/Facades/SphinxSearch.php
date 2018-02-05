@@ -1,6 +1,6 @@
 <?php
 
-namespace dariusiii\SphinxSearch;
+namespace dariusiii\SphinxSearch\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
