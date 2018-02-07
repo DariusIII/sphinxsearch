@@ -4,10 +4,9 @@ return [
     'port'    => 9312,
     'timeout' => 30,
     'indexes' => [
-        'my_index_name' => [
-        	'table' => 'keywords',
-	        'column' => 'id'
-        ],
+        'name' => 'my_index_name',
+       	'table' => 'keywords',
+	    'column' => 'id'
     ],
     'mysql_server' => [
         'host' => '127.0.0.1',

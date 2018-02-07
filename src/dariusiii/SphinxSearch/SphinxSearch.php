@@ -42,7 +42,7 @@ class SphinxSearch
 		}
 		$this->_config = config('sphinxsearch.indexes');
 		reset($this->_config);
-		$this->_index_name = isset($this->_config['name']) ? implode(',', $this->_config['name']) : key($this->_config);
+		$this->_index_name = $this->_config['name'] ?? key($this->_config);
 		$this->_eager_loads = [];
 	}
 	
@@ -87,6 +87,27 @@ class SphinxSearch
 		}
 		
 		return $reply;
+	}
+	
+	/**
+	 * @param int   $id
+	 * @param array|string $values
+	 */
+	public function replaceQL (int $id, array $values = []): void
+	{
+		$columns = implode(',', $this->_config['column']);
+		$values = sprintf("'%s'", implode("','", $values));
+		$query = "REPLACE INTO $this->_index_name ($columns) VALUES ($id, $values)";
+		$this->_pdo->exec($query);
+	}
+	
+	/**
+	 * @param int $id
+	 */
+	public function deleteQL (int $id): void
+	{
+		$query = "DELETE FROM $this->_index_name WHERE id = $id";
+		$this->_pdo->exec($query);
 	}
 	
 	/**
